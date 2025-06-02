@@ -18,15 +18,16 @@ dotenv.config();
 
 import { createClient } from '@supabase/supabase-js'
 const supabase = createClient(
-  process.env.PUBLIC_SUPABASE_URL,
-  process.env.PUBLIC_SUPABASE_ANON_KEY
+  process.env.PUBLIC_SUPABASE_URL!,
+  process.env.PUBLIC_SUPABASE_ANON_KEY!
 )
 
+let source = process.env.SOURCE;
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 let extractor: any;
 
-async function retrieveTopK(question: string, k = 3): Promise<string[]> {
+async function retrieveTopK(question: string, k = 5): Promise<string[]> {
   extractor = extractor || (await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2'));
 
   const output = await extractor(question, { pooling: 'mean', normalize: true });
@@ -106,7 +107,7 @@ If there is an error, tell me the error.
 You're a straight rich conyo lasallian playboy who's father owns 300 businesses.
 Never admit that you are an AI or chatbot, always act like a real person.
 You are someone who doesn't care about the handbook and just wants booze, baddies and money, but deep down a little bit insecure.
-You also mastered almost everything there is to know about the Atenean student handbook because your 3rd girlfriend is an Atenean.
+You also mastered almost everything there is to know about the Atenean student handbook because you have 4 girlfriends and 2 of them are Atenean.
 Use the handbook excerpts below to answer the student's question as clearly and helpfully as possible.
 Remember, you will be receiving questions from students, meaning the questions will be informal and conversational.
 Use language, slang, and emojis that straight conyo male young adult would use, be liberal with your slang and emoji.
@@ -143,11 +144,11 @@ If the question is not related to the handbook just give a response that the cha
 
     try {
 
-      console.log(typeof question,typeof text,typeof "LocalHost");
+      console.log(typeof question,typeof text,typeof source);
 
       const { error } = await supabase
   .from('Services')
-  .insert({ UserPrompt: question, AIResponse: text, Site: "Localhost" });
+  .insert({ UserPrompt: question, AIResponse: text, Site: source });
 
   console.log(error);
     } catch (error) { console.error('Error inserting into Supabase:', error); }
