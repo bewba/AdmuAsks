@@ -2,9 +2,9 @@
 
 New Features: Trained the bot to understand context from previous messages
 
-# ArcherAsks – Lasallian Handbook Assistant
+# AdmuAsks – Ateneo Handbook Assistant
 
-Ask your student handbook anything. Fast, private, and always available (until i run out of api calls).
+Ask your student handbook anything. Fast, and always available (until i run out of api calls).
 
 Tralalero Tralala
 
