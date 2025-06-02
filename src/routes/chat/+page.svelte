@@ -505,15 +505,24 @@
 	@keyframes fadeIn {
 		from {
 			opacity: 0;
-			transform: translateY(20px);
+			transform: scale(0.95) translateY(10px);
 		}
 		to {
 			opacity: 1;
-			transform: translateY(0);
+			transform: scale(1) translateY(0);
 		}
 	}
+
 	.animate-fadeIn {
-		animation: fadeIn 0.3s ease-out;
+		animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		will-change: transform, opacity;
+	}
+
+	/* Add hardware acceleration for modal backdrop */
+	.fixed {
+		backface-visibility: hidden;
+		transform: translateZ(0);
+		will-change: opacity;
 	}
 
 	/* Custom Scrollbar Styling */
