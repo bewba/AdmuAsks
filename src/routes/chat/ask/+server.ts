@@ -24,6 +24,8 @@ const supabase = createClient(
 
 let source = process.env.SOURCE;
 
+console.log( process.env.PUBLIC_SUPABASE_URL, process.env.PUBLIC_SUPABASE_ANON_KEY, source)
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 let extractor: any;
 
